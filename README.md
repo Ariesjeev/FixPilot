@@ -7,7 +7,7 @@ An end-to-end **Forward Deployed Engineer (FDE) project** that turns a notebook-
 ## 1. Business Problem
 
 ### Customer
-**NovaRetail**, a fictional 3,000-employee retail company.
+**NexoraRetail**, a fictional 3,000-employee retail company.
 
 ### Problem
 The internal IT team maintains many documents: VPN instructions, password rules, MFA policy, software installation rules, laptop troubleshooting guides, and service-desk runbooks.
