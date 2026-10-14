@@ -1,6 +1,22 @@
 # FixPilot
 
-An end-to-end **Forward Deployed Engineer (FDE) project** that turns a notebook-style Agentic RAG workflow into a deployable internal product using **LangGraph, FastAPI, Pinecone, Groq, Tavily, HTML, CSS, and JavaScript**.
+FixPilot is an AI-powered IT support assistant that answers employee questions using company documents. If the documents do not have a helpful answer, it can search the web. It shows how it found each answer and lets authorized staff add new documents. Built with **LangGraph, FastAPI, Pinecone, Groq, Tavily, HTML, CSS, and JavaScript**.
+
+---
+
+## Project Snapshots
+
+### Home Screen
+
+![FixPilot home screen](docs/images/home.png)
+
+### Agent Response and Trace
+
+![FixPilot response with the agent decision trace](docs/images/agent_response.png)
+
+### Add a Company Document
+
+![FixPilot document upload dialog](docs/images/add_document.png)
 
 ---
 
@@ -540,4 +556,3 @@ Protected by the `X-Admin-Key` request header.
 Uploads a document and adds its chunks to Pinecone.
 
 ---
-
