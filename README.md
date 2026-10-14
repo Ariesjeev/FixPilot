@@ -572,4 +572,4 @@ This project is licensed under the [Apache License 2.0](LICENSE).
 
 ## 👤 Author
 
-**Jeevan Bikash Sahoo** — Full Stack Developer & AI Engineer · [GitHub](https://github.com/Ariesjeev) · [LinkedIn](https://www.linkedin.com/in/jeevan02/) · [X](https://x.com/jeevan_bikash)
+**Jeevan Bikash Sahoo** — AI Engineer · [GitHub](https://github.com/Ariesjeev) · [LinkedIn](https://www.linkedin.com/in/jeevan02/) · [X](https://x.com/jeevan_bikash)
