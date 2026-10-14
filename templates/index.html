@@ -3,69 +3,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
   <title>{{ app_name }}</title>
+  <link rel="icon" type="image/svg+xml" href="/static/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body>
   <div class="shell">
-    <aside class="sidebar">
-      <div>
-        <div class="brand-badge">FixPilot</div>
-        <h1>IT Support<br/>Agentic RAG</h1>
-        <p class="muted">Private company knowledge first. External web only when evidence is weak.</p>
+
+    <aside class="rail">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">F</div>
+        <div>
+          <div class="brand-name">FixPilot</div>
+          <div class="brand-sub">IT support assistant</div>
+        </div>
       </div>
 
-      <div class="workflow-card">
-        <h3>LangGraph Workflow</h3>
-        <div class="flow-step">1. Route question</div>
-        <div class="flow-step">2. Retrieve private KB</div>
-        <div class="flow-step">3. Grade evidence</div>
-        <div class="flow-step">4. Web fallback if weak</div>
-        <div class="flow-step">5. Rewrite & retry</div>
-        <div class="flow-step">6. Grounded answer</div>
-      </div>
+      <p class="rail-copy">Answers come from your company knowledge base first. The web is used only when internal evidence is weak.</p>
 
-      <button id="openUpload" class="secondary-btn">+ Add Company Document</button>
+      <nav class="pipeline" aria-label="How the agent works">
+        <div class="pipeline-title">How it answers</div>
+        <ol>
+          <li class="flow-step" data-key="route"><span class="node"></span>Understand the question</li>
+          <li class="flow-step" data-key="retrieve"><span class="node"></span>Search company docs</li>
+          <li class="flow-step" data-key="grade"><span class="node"></span>Check the evidence</li>
+          <li class="flow-step" data-key="web"><span class="node"></span>Search the web if needed</li>
+          <li class="flow-step" data-key="rewrite"><span class="node"></span>Rephrase and retry</li>
+          <li class="flow-step" data-key="answer"><span class="node"></span>Write a sourced answer</li>
+        </ol>
+      </nav>
+
+      <button id="openUpload" class="ghost-btn" type="button">Add a company document</button>
     </aside>
 
     <main class="main">
       <header class="topbar">
-        <div>
-          <span class="status-dot"></span>
-          <span>Enterprise Knowledge Copilot</span>
+        <div class="topbar-title">
+          <div class="title-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"/></svg>
+          </div>
+          <div>
+            <div class="title-main">Help Desk</div>
+            <div class="title-sub">Answers from your company docs</div>
+          </div>
         </div>
-        <span class="pill">Agentic RAG</span>
+        <div class="topbar-right">
+          <!-- <span class="status-chip"><span class="status-dot"></span>Agent ready</span> -->
+          <button id="toggleTrace" class="ghost-btn small trace-toggle" type="button">Agent trace</button>
+        </div>
       </header>
 
-      <section id="chat" class="chat-area">
-        <div class="message assistant">
-          <div class="avatar">AI</div>
-          <div class="bubble">
-            <strong>How can I help with IT support?</strong>
-            <p>Try: “How do I connect to the company VPN?” or ask a question that may require current external vendor information.</p>
+      <section id="chat" class="chat-area" aria-live="polite">
+        <div id="welcome" class="welcome">
+          <h2>What do you need help with?</h2>
+          <p>Ask about VPN, passwords, devices, or software. I will show you where each answer came from.</p>
+          <div class="examples">
+            <button class="example" type="button">How do I connect to the company VPN?</button>
+            <button class="example" type="button">What is our password reset policy?</button>
+            <button class="example" type="button">What is the latest Microsoft Teams outage guidance?</button>
           </div>
         </div>
       </section>
 
       <section class="composer-wrap">
-        <div class="examples">
-          <button class="example">How do I connect to the company VPN?</button>
-          <button class="example">What is our password reset policy?</button>
-          <button class="example">What is the latest Microsoft Teams outage guidance?</button>
-        </div>
         <form id="chatForm" class="composer">
-          <textarea id="question" rows="2" placeholder="Ask an IT support question..." required></textarea>
-          <button type="submit" class="send-btn">Ask Agent</button>
+          <textarea id="question" rows="1" placeholder="Describe your IT issue" required></textarea>
+          <button type="submit" class="send-btn">Ask</button>
         </form>
+        <div class="hint">Enter to send, Shift+Enter for a new line</div>
       </section>
     </main>
 
-    <aside class="trace-panel">
-      <h2>Agent Trace</h2>
-      <p class="muted">Watch LangGraph decisions while the request runs.</p>
-      <div id="trace" class="trace-list"><div class="empty">No request yet.</div></div>
+    <aside id="tracePanel" class="trace-panel">
+      <div class="trace-head">
+        <h2>Agent trace</h2>
+        <button id="closeTrace" class="icon-btn trace-close" type="button" aria-label="Close trace">×</button>
+      </div>
+      <p class="muted">Each decision the agent makes shows up here.</p>
+      <div id="trace" class="trace-list"><div class="empty">Ask a question to see the steps.</div></div>
       <div class="source-box">
-        <span>Final Source</span>
+        <span>Answer source</span>
         <strong id="sourceUsed">—</strong>
       </div>
     </aside>
@@ -73,11 +94,14 @@
 
   <div id="uploadModal" class="modal hidden">
     <div class="modal-card">
-      <div class="modal-head"><h2>Ingest Company Document</h2><button id="closeUpload">×</button></div>
-      <p class="muted">Upload PDF, TXT, Markdown, or DOCX. The document is chunked, embedded, and indexed into Pinecone.</p>
+      <div class="modal-head">
+        <h2>Add a company document</h2>
+        <button id="closeUpload" class="icon-btn" type="button" aria-label="Close">×</button>
+      </div>
+      <p class="muted">Upload a PDF, TXT, Markdown, or DOCX file. It is split into chunks, embedded, and indexed in Pinecone.</p>
       <input id="adminKey" type="password" placeholder="Admin API key" />
       <input id="fileInput" type="file" accept=".pdf,.txt,.md,.docx" />
-      <button id="uploadBtn" class="send-btn full">Index Document</button>
+      <button id="uploadBtn" class="send-btn full" type="button">Index document</button>
       <div id="uploadStatus" class="upload-status"></div>
     </div>
   </div>
