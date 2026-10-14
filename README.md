@@ -556,3 +556,20 @@ Protected by the `X-Admin-Key` request header.
 Uploads a document and adds its chunks to Pinecone.
 
 ---
+
+## 🤝 Contributing
+
+Contributions, bug reports, and suggestions are welcome. To contribute:
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/your-change`).
+3. Make your changes and commit them with a clear message.
+4. Push your branch and open a pull request describing your changes.
+
+## 📄 License
+
+This project is licensed under the [Apache License 2.0](LICENSE).
+
+## 👤 Author
+
+**Jeevan Bikash Sahoo** — Full Stack Developer & AI Engineer · [GitHub](https://github.com/Ariesjeev) · [LinkedIn](https://www.linkedin.com/in/jeevan02/) · [X](https://x.com/jeevan_bikash)
