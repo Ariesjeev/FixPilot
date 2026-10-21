@@ -202,7 +202,7 @@ The system therefore controls **what to do next** based on its current state.
 |---|---|---|
 | Agent workflow | LangGraph | Stateful routing and conditional decisions |
 | LLM | Groq | Routing, grading, rewriting, answer generation |
-| Embeddings | OpenAI `text-embedding-3-small` | 1536-dimensional embeddings |
+| Embeddings | HuggingFace `all-MiniLM-L6-v2` | Local 384-dimensional embeddings |
 | Vector DB | Pinecone | Private enterprise knowledge base |
 | External search | Tavily | Fallback when company KB is insufficient |
 | API | FastAPI | Backend and REST endpoints |
