@@ -1,6 +1,6 @@
 # FixPilot
 
-FixPilot is an AI-powered IT support assistant that answers employee questions using company documents. If the documents do not have a helpful answer, it can search the web. It shows how it found each answer and lets authorized staff add new documents. Built with **LangGraph, FastAPI, Pinecone, OpenAI, Tavily, HTML, CSS, and JavaScript**.
+FixPilot is an AI-powered IT support assistant that answers employee questions using company documents. If the documents do not have a helpful answer, it can search the web. It shows how it found each answer and lets authorized staff add new documents. Built with **LangGraph, FastAPI, Pinecone, Groq, Tavily, HTML, CSS, and JavaScript**.
 
 ---
 
@@ -127,7 +127,7 @@ This repository demonstrates each layer.
                └──────────────┬──────────────┘
                               ▼
                      ┌────────────────┐
-                     │ OpenAI LLM     │
+                     │ Groq LLM       │
                      │ Grounded Answer│
                      └────────────────┘
 ```
@@ -201,7 +201,7 @@ The system therefore controls **what to do next** based on its current state.
 | Layer | Technology | Purpose |
 |---|---|---|
 | Agent workflow | LangGraph | Stateful routing and conditional decisions |
-| LLM | OpenAI | Routing, grading, rewriting, answer generation |
+| LLM | Groq | Routing, grading, rewriting, answer generation |
 | Embeddings | OpenAI `text-embedding-3-small` | 1536-dimensional embeddings |
 | Vector DB | Pinecone | Private enterprise knowledge base |
 | External search | Tavily | Fallback when company KB is insufficient |
@@ -215,7 +215,7 @@ The system therefore controls **what to do next** based on its current state.
 ## 6. Project Structure
 
 ```text
-FDE_Agentic_RAG_IT_Copilot/
+FixPilot/
 │
 ├── app/
 │   ├── api/
@@ -293,7 +293,8 @@ pip install -r requirements.txt
 Create a `.env` file in the project root directory with the following variables:
 
 ```env
-# OpenAI API Key (LLM and embeddings)
+# LLM API Keys
+GROQ_API_KEY=your_groq_api_key_here
 OPENAI_API_KEY=your_openai_api_key_here
 
 # External Search
@@ -304,7 +305,8 @@ PINECONE_API_KEY=your_pinecone_api_key_here
 PINECONE_INDEX_NAME=fde-it-support-rag
 PINECONE_NAMESPACE=company-it-kb
 
-# LLM and embedding models
+# LLM Models
+GROQ_MODEL=openai/gpt-oss-20b
 OPENAI_MODEL=gpt-4o-mini
 EMBEDDING_MODEL=text-embedding-3-small
 
@@ -319,11 +321,13 @@ APP_ENV=development
 
 | Variable | Description | Example | Required |
 |---|---|---|---|
-| `OPENAI_API_KEY` | API key for OpenAI (LLM and embeddings) | `sk-...` | ✅ Yes |
+| `GROQ_API_KEY` | API key for Groq LLM (routing, grading, generation) | `gsk_...` | ✅ Yes |
+| `OPENAI_API_KEY` | API key for OpenAI (embeddings and fallback LLM) | `sk-...` | ✅ Yes |
 | `TAVILY_API_KEY` | API key for Tavily web search | `tvly-...` | ✅ Yes |
 | `PINECONE_API_KEY` | API key for Pinecone vector database | `pckey-...` | ✅ Yes |
 | `PINECONE_INDEX_NAME` | Pinecone index name | `fde-it-support-rag` | ⚠️ Optional (default: `fde-it-support-rag`) |
 | `PINECONE_NAMESPACE` | Pinecone namespace for document isolation | `company-it-kb` | ⚠️ Optional (default: `company-it-kb`) |
+| `GROQ_MODEL` | Groq model identifier | `openai/gpt-oss-20b` | ⚠️ Optional (default: `openai/gpt-oss-20b`) |
 | `OPENAI_MODEL` | OpenAI model identifier | `gpt-4o-mini` | ⚠️ Optional (default: `gpt-4o-mini`) |
 | `EMBEDDING_MODEL` | Embedding model for vectorization | `text-embedding-3-small` | ⚠️ Optional (default: `text-embedding-3-small`) |
 | `ADMIN_API_KEY` | Secret key for admin endpoints (document ingestion) | `your-secure-key` | ⚠️ Optional (default: `change-me`) |
@@ -351,7 +355,7 @@ Load Documents
    ↓
 Chunk Text
    ↓
-OpenAI Embeddings
+HuggingFace Embeddings
    ↓
 Pinecone Vector Database
 ```
