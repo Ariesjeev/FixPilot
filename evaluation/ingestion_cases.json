@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "description": "Local extraction smoke checks across PDF, TXT, Markdown, and DOCX. This small mixed corpus is not statistically representative of all documents or layouts.",
+  "cases": [
+    {
+      "case_id": "company-it-handbook",
+      "path": "../data/sample_kb/company_it_handbook.md",
+      "expected_text": [
+        "VPN Access",
+        "Employees must never share passwords or MFA codes with support personnel."
+      ]
+    },
+    {
+      "case_id": "service-desk-runbook",
+      "path": "../data/sample_kb/service_desk_runbook.md",
+      "expected_text": [
+        "Email Troubleshooting",
+        "P1: company-wide outage or critical security incident."
+      ]
+    },
+    {
+      "case_id": "nexora-company-handbook-pdf",
+      "path": "../uploads/nexora_technologies_company_information_updated.pdf",
+      "expected_text": [
+        "Nexora Technologies Company Information Handbook",
+        "Nexora Technologies"
+      ]
+    },
+    {
+      "case_id": "novacore-company-handbook-pdf",
+      "path": "../uploads/novacore_company_information.pdf",
+      "expected_text": [
+        "NovaCore Technologies - Internal Company Information",
+        "NovaCore Technologies Company Information Handbook"
+      ]
+    },
+    {
+      "case_id": "network-access-quick-reference-txt",
+      "path": "fixtures/network_access_quick_reference.txt",
+      "expected_text": [
+        "Connect to the corporate VPN before accessing internal systems.",
+        "Never disable endpoint security or firewall settings"
+      ]
+    },
+    {
+      "case_id": "device-recovery-guide-docx",
+      "path": "fixtures/device_recovery_guide.docx",
+      "expected_text": [
+        "Report a lost company laptop to the Service Desk immediately.",
+        "Do not share passwords or MFA codes with support personnel."
+      ]
+    }
+  ]
+}

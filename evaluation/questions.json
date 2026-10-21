@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "description": "Starter benchmark based on the checked-in NexoraRetail sample knowledge base. Review each expected source and answer point before using results.",
+  "questions": [
+    {
+      "case_id": "vpn-remote-access",
+      "question": "How do I connect to the company VPN from home?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Install NexSecure VPN from the internal Software Portal.",
+        "Sign in with company email and password, complete MFA, and select a corporate gateway.",
+        "Do not disable endpoint security or firewall settings."
+      ]
+    },
+    {
+      "case_id": "password-reset",
+      "question": "What is the normal company password reset process, and what if I get locked out?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Use the self-service identity portal for normal resets.",
+        "After five failed attempts, the account may be temporarily locked.",
+        "Contact the IT Service Desk if self-service recovery fails."
+      ]
+    },
+    {
+      "case_id": "mfa-sharing",
+      "question": "Can I give my MFA code to someone from IT support?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Never share passwords or MFA codes with support personnel."
+      ]
+    },
+    {
+      "case_id": "approved-mfa",
+      "question": "Which MFA methods are approved for protected company systems?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "The company authenticator app and registered hardware security keys are approved.",
+        "SMS is only allowed when explicitly enabled as a recovery method."
+      ]
+    },
+    {
+      "case_id": "software-installation",
+      "question": "How can I install business software that is not listed in the company portal?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Unlisted software requires manager approval and IT security review.",
+        "Administrator access is not granted simply to install unapproved applications."
+      ]
+    },
+    {
+      "case_id": "lost-laptop",
+      "question": "What should I do if my company laptop is stolen?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Immediately report it to the IT Service Desk and manager.",
+        "Provide the asset tag if available and last known location.",
+        "Do not try to recover the device remotely yourself."
+      ]
+    },
+    {
+      "case_id": "email-troubleshooting",
+      "question": "I cannot send or receive email. What should IT check first?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Determine whether one user or many users are affected.",
+        "Check network connectivity and the service status dashboard.",
+        "For one user, sign out and back in, check mailbox quota, and test the web client.",
+        "Escalate widespread incidents instead of asking every user to reinstall."
+      ]
+    },
+    {
+      "case_id": "laptop-slow",
+      "question": "My work laptop is running slowly. What troubleshooting steps are allowed?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Check CPU, memory, free storage, startup applications, OS updates, and endpoint security scan status.",
+        "Do not disable security agents.",
+        "Escalate hardware diagnostic failures or repeated shutdowns."
+      ]
+    },
+    {
+      "case_id": "ticket-priority",
+      "question": "What priority should an individual user issue with limited workaround receive?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "P3 is for an individual user blocked or degraded with a limited workaround."
+      ]
+    },
+    {
+      "case_id": "current-vendor-status",
+      "question": "Where can I check the current Microsoft Teams service outage status?",
+      "expected_source": "web_search",
+      "expected_answer_points": [
+        "Uses a current, relevant external source and clearly identifies it as external information."
+      ]
+    },
+    {
+      "case_id": "current-vendor-guidance",
+      "question": "What is Microsoft's latest public guidance for troubleshooting a Teams service outage?",
+      "expected_source": "web_search",
+      "expected_answer_points": [
+        "Uses current, relevant external guidance and identifies the source.",
+        "Does not present external guidance as NexoraRetail company policy."
+      ]
+    }
+  ]
+}

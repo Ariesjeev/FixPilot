@@ -1,6 +1,6 @@
 # FixPilot
 
-FixPilot is an AI-powered IT support assistant that answers employee questions using company documents. If the documents do not have a helpful answer, it can search the web. It shows how it found each answer and lets authorized staff add new documents. Built with **LangGraph, FastAPI, Pinecone, Groq, Tavily, HTML, CSS, and JavaScript**.
+FixPilot is an AI-powered IT support assistant that answers employee questions using company documents. If the documents do not have a helpful answer, it can search the web. It shows how it found each answer and lets authorized staff add new documents. Built with **LangGraph, FastAPI, Pinecone, OpenAI, Tavily, HTML, CSS, and JavaScript**.
 
 ---
 
@@ -127,7 +127,7 @@ This repository demonstrates each layer.
                └──────────────┬──────────────┘
                               ▼
                      ┌────────────────┐
-                     │ Groq LLM       │
+                     │ OpenAI LLM     │
                      │ Grounded Answer│
                      └────────────────┘
 ```
@@ -201,8 +201,8 @@ The system therefore controls **what to do next** based on its current state.
 | Layer | Technology | Purpose |
 |---|---|---|
 | Agent workflow | LangGraph | Stateful routing and conditional decisions |
-| LLM | Groq | Routing, grading, rewriting, answer generation |
-| Embeddings | HuggingFace `all-MiniLM-L6-v2` | Local 384-dimensional embeddings |
+| LLM | OpenAI | Routing, grading, rewriting, answer generation |
+| Embeddings | OpenAI `text-embedding-3-small` | 1536-dimensional embeddings |
 | Vector DB | Pinecone | Private enterprise knowledge base |
 | External search | Tavily | Fallback when company KB is insufficient |
 | API | FastAPI | Backend and REST endpoints |
@@ -293,8 +293,7 @@ pip install -r requirements.txt
 Create a `.env` file in the project root directory with the following variables:
 
 ```env
-# LLM API Keys
-GROQ_API_KEY=your_groq_api_key_here
+# OpenAI API Key (LLM and embeddings)
 OPENAI_API_KEY=your_openai_api_key_here
 
 # External Search
@@ -305,8 +304,7 @@ PINECONE_API_KEY=your_pinecone_api_key_here
 PINECONE_INDEX_NAME=fde-it-support-rag
 PINECONE_NAMESPACE=company-it-kb
 
-# LLM Models
-GROQ_MODEL=openai/gpt-oss-20b
+# LLM and embedding models
 OPENAI_MODEL=gpt-4o-mini
 EMBEDDING_MODEL=text-embedding-3-small
 
@@ -321,13 +319,11 @@ APP_ENV=development
 
 | Variable | Description | Example | Required |
 |---|---|---|---|
-| `GROQ_API_KEY` | API key for Groq LLM (routing, grading, generation) | `gsk_...` | ✅ Yes |
-| `OPENAI_API_KEY` | API key for OpenAI (embeddings and fallback LLM) | `sk-...` | ✅ Yes |
+| `OPENAI_API_KEY` | API key for OpenAI (LLM and embeddings) | `sk-...` | ✅ Yes |
 | `TAVILY_API_KEY` | API key for Tavily web search | `tvly-...` | ✅ Yes |
 | `PINECONE_API_KEY` | API key for Pinecone vector database | `pckey-...` | ✅ Yes |
 | `PINECONE_INDEX_NAME` | Pinecone index name | `fde-it-support-rag` | ⚠️ Optional (default: `fde-it-support-rag`) |
 | `PINECONE_NAMESPACE` | Pinecone namespace for document isolation | `company-it-kb` | ⚠️ Optional (default: `company-it-kb`) |
-| `GROQ_MODEL` | Groq model identifier | `openai/gpt-oss-20b` | ⚠️ Optional (default: `openai/gpt-oss-20b`) |
 | `OPENAI_MODEL` | OpenAI model identifier | `gpt-4o-mini` | ⚠️ Optional (default: `gpt-4o-mini`) |
 | `EMBEDDING_MODEL` | Embedding model for vectorization | `text-embedding-3-small` | ⚠️ Optional (default: `text-embedding-3-small`) |
 | `ADMIN_API_KEY` | Secret key for admin endpoints (document ingestion) | `your-secure-key` | ⚠️ Optional (default: `change-me`) |
@@ -355,7 +351,7 @@ Load Documents
    ↓
 Chunk Text
    ↓
-HuggingFace Embeddings
+OpenAI Embeddings
    ↓
 Pinecone Vector Database
 ```
@@ -378,9 +374,75 @@ FastAPI API docs:
 http://127.0.0.1:8000/docs
 ```
 
+## 8. Measure RAG Quality
+
+The evaluation harness compares the evidence-aware LangGraph workflow with a
+basic retrieve-and-generate baseline using the same Pinecone retriever and LLM.
+It records source selection, workflow traces, citations, and elapsed time for
+each answer. The starter benchmark in
+[`evaluation/questions.json`](./evaluation/questions.json) is based on the
+checked-in sample knowledge-base documents.
+
+Index the sample documents into the same Pinecone index and namespace configured
+in `.env`, then run the paired evaluation from the repository root:
+
+```powershell
+python ingest_sample_kb.py
+python -m scripts.evaluate_rag run
+```
+
+The run requires working OpenAI and Pinecone credentials; cases expected to use
+web fallback also require a Tavily key. Raw answers and traces are written to
+`evaluation/results/latest.json`. That folder is git-ignored because results
+contain generated answers. Review the expected labels and answers against the
+knowledge base you actually indexed before using the scores.
+
+For each `basic_rag` and `agentic_rag` answer in the results file, annotate:
+
+- `answer_correct`: `true` only if the answer accurately covers the case's
+  `expected_answer_points`; otherwise `false`.
+- `unsupported_claims`: `true` if the answer makes at least one factual claim
+  unsupported by its retrieved or cited evidence; otherwise `false`. A refusal
+  with no unsupported factual claims should be `false`.
+
+Calculate and save the report after annotation:
+
+```powershell
+python -m scripts.evaluate_rag score
+```
+
+The report includes source-selection accuracy, web-fallback precision and
+recall, human-scored answer accuracy, human-scored unsupported-claim rate, mean
+latency, and the agentic-vs-baseline change. Answer-quality values remain `N/A`
+until manually annotated; the unsupported-claim rate is a human-reviewed proxy,
+not an automatic hallucination detector. Keep the raw run, annotations, dataset
+version, and scoring rubric when quoting results. Include the benchmark size
+and avoid generalizing from this small sample to all employee questions.
+
+Measure document extraction separately using the checked-in
+[`evaluation/ingestion_cases.json`](./evaluation/ingestion_cases.json) manifest:
+
+```powershell
+python -m scripts.evaluate_ingestion
+```
+
+Each file passes only when **all** its listed `expected_text` fragments are
+present in extracted text. The current local manifest checks two PDFs from
+`uploads/`, two checked-in Markdown files, and TXT/DOCX fixtures. This is a
+format smoke test, not a statistically representative parsing benchmark or a
+guarantee for every PDF/TXT/DOCX layout. Add more representative documents and
+expected fragments before making broader claims. The report records case IDs
+and aggregate counts, not extracted document text.
+
+Run metric-calculation tests without calling external services:
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
 ---
 
-## 8. Classroom Demo Scenarios
+## 9. Classroom Demo Scenarios
 
 ### Demo A — Private KB Success
 
@@ -482,7 +544,7 @@ Teaching point:
 
 ---
 
-## 9. Document Upload Demo
+## 10. Document Upload Demo
 
 The sidebar contains **Add Company Document**.
 
@@ -517,7 +579,7 @@ This is useful in an FDE demonstration because the customer does not want to edi
 
 ---
 
-## 10. API Endpoints
+## 11. API Endpoints
 
 ### `GET /api/health`
 
