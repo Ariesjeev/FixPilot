@@ -215,7 +215,7 @@ The system therefore controls **what to do next** based on its current state.
 ## 6. Project Structure
 
 ```text
-FDE_Agentic_RAG_IT_Copilot/
+FixPilot/
 │
 ├── app/
 │   ├── api/
@@ -378,9 +378,75 @@ FastAPI API docs:
 http://127.0.0.1:8000/docs
 ```
 
+## 8. Measure RAG Quality
+
+The evaluation harness compares the evidence-aware LangGraph workflow with a
+basic retrieve-and-generate baseline using the same Pinecone retriever and LLM.
+It records source selection, workflow traces, citations, and elapsed time for
+each answer. The starter benchmark in
+[`evaluation/questions.json`](./evaluation/questions.json) is based on the
+checked-in sample knowledge-base documents.
+
+Index the sample documents into the same Pinecone index and namespace configured
+in `.env`, then run the paired evaluation from the repository root:
+
+```powershell
+python ingest_sample_kb.py
+python -m scripts.evaluate_rag run
+```
+
+The run requires working OpenAI and Pinecone credentials; cases expected to use
+web fallback also require a Tavily key. Raw answers and traces are written to
+`evaluation/results/latest.json`. That folder is git-ignored because results
+contain generated answers. Review the expected labels and answers against the
+knowledge base you actually indexed before using the scores.
+
+For each `basic_rag` and `agentic_rag` answer in the results file, annotate:
+
+- `answer_correct`: `true` only if the answer accurately covers the case's
+  `expected_answer_points`; otherwise `false`.
+- `unsupported_claims`: `true` if the answer makes at least one factual claim
+  unsupported by its retrieved or cited evidence; otherwise `false`. A refusal
+  with no unsupported factual claims should be `false`.
+
+Calculate and save the report after annotation:
+
+```powershell
+python -m scripts.evaluate_rag score
+```
+
+The report includes source-selection accuracy, web-fallback precision and
+recall, human-scored answer accuracy, human-scored unsupported-claim rate, mean
+latency, and the agentic-vs-baseline change. Answer-quality values remain `N/A`
+until manually annotated; the unsupported-claim rate is a human-reviewed proxy,
+not an automatic hallucination detector. Keep the raw run, annotations, dataset
+version, and scoring rubric when quoting results. Include the benchmark size
+and avoid generalizing from this small sample to all employee questions.
+
+Measure document extraction separately using the checked-in
+[`evaluation/ingestion_cases.json`](./evaluation/ingestion_cases.json) manifest:
+
+```powershell
+python -m scripts.evaluate_ingestion
+```
+
+Each file passes only when **all** its listed `expected_text` fragments are
+present in extracted text. The current local manifest checks two PDFs from
+`uploads/`, two checked-in Markdown files, and TXT/DOCX fixtures. This is a
+format smoke test, not a statistically representative parsing benchmark or a
+guarantee for every PDF/TXT/DOCX layout. Add more representative documents and
+expected fragments before making broader claims. The report records case IDs
+and aggregate counts, not extracted document text.
+
+Run metric-calculation tests without calling external services:
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
 ---
 
-## 8. Classroom Demo Scenarios
+## 9. Classroom Demo Scenarios
 
 ### Demo A — Private KB Success
 
@@ -482,7 +548,7 @@ Teaching point:
 
 ---
 
-## 9. Document Upload Demo
+## 10. Document Upload Demo
 
 The sidebar contains **Add Company Document**.
 
@@ -517,7 +583,7 @@ This is useful in an FDE demonstration because the customer does not want to edi
 
 ---
 
-## 10. API Endpoints
+## 11. API Endpoints
 
 ### `GET /api/health`
 

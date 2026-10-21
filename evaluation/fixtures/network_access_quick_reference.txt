@@ -1,0 +1,4 @@
+Network Access Quick Reference
+
+Connect to the corporate VPN before accessing internal systems.
+Never disable endpoint security or firewall settings to troubleshoot a connection.
