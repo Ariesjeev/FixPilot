@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "run_at": "2026-10-21T10:36:03.894978+00:00",
+  "case_count": 11,
+  "systems": {
+    "basic_rag": {
+      "completed_cases": 11,
+      "source_selection_accuracy_pct": 81.8,
+      "web_fallback_precision_pct": null,
+      "web_fallback_recall_pct": 0.0,
+      "answer_accuracy_pct": 63.6,
+      "answer_annotations": 11,
+      "unsupported_claim_rate_pct": null,
+      "unsupported_claim_annotations": 0,
+      "mean_latency_ms": 3169.1
+    },
+    "agentic_rag": {
+      "completed_cases": 11,
+      "source_selection_accuracy_pct": 90.9,
+      "web_fallback_precision_pct": 100.0,
+      "web_fallback_recall_pct": 50.0,
+      "answer_accuracy_pct": 90.9,
+      "answer_annotations": 11,
+      "unsupported_claim_rate_pct": null,
+      "unsupported_claim_annotations": 0,
+      "mean_latency_ms": 5869.5
+    }
+  },
+  "agentic_vs_basic_rag": {
+    "source_selection_accuracy_delta_percentage_points": 9.1,
+    "answer_accuracy_delta_percentage_points": 27.3,
+    "unsupported_claim_rate_reduction_pct": null,
+    "mean_latency_change_pct": 85.2
+  },
+  "metric_notes": {
+    "answer_accuracy_pct": "Calculated only from manually annotated answers; null means none are annotated.",
+    "unsupported_claim_rate_pct": "Calculated only from manually annotated answers; this is a human-reviewed proxy, not an automatic hallucination detector.",
+    "source_selection_accuracy_pct": "Compared with each case's expected_source label.",
+    "web_fallback_precision_pct": "Of answers sent to web search, the fraction whose expected source was web search.",
+    "web_fallback_recall_pct": "Of cases labeled for web search, the fraction actually sent to web search.",
+    "mean_latency_ms": "Mean elapsed time for completed system calls in this run; excludes benchmark setup and manual review."
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "run_at": "2026-10-21T10:40:43.420630+00:00",
+  "manifest": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\evaluation\\ingestion_cases.json",
+  "manifest_version": 1,
+  "definition": "A file passes only when every non-empty expected_text fragment is present in the extracted text after whitespace normalization and case-insensitive matching.",
+  "total_files": 6,
+  "successful_files": 6,
+  "parsing_success_rate_pct": 100.0,
+  "by_file_type": {
+    "docx": {
+      "total_files": 1,
+      "successful_files": 1,
+      "success_rate_pct": 100.0
+    },
+    "md": {
+      "total_files": 2,
+      "successful_files": 2,
+      "success_rate_pct": 100.0
+    },
+    "pdf": {
+      "total_files": 2,
+      "successful_files": 2,
+      "success_rate_pct": 100.0
+    },
+    "txt": {
+      "total_files": 1,
+      "successful_files": 1,
+      "success_rate_pct": 100.0
+    }
+  },
+  "cases": [
+    {
+      "case_id": "company-it-handbook",
+      "file_type": "md",
+      "required_text_count": 2,
+      "matched_text_count": 2,
+      "success": true
+    },
+    {
+      "case_id": "service-desk-runbook",
+      "file_type": "md",
+      "required_text_count": 2,
+      "matched_text_count": 2,
+      "success": true
+    },
+    {
+      "case_id": "nexora-company-handbook-pdf",
+      "file_type": "pdf",
+      "required_text_count": 2,
+      "matched_text_count": 2,
+      "success": true
+    },
+    {
+      "case_id": "novacore-company-handbook-pdf",
+      "file_type": "pdf",
+      "required_text_count": 2,
+      "matched_text_count": 2,
+      "success": true
+    },
+    {
+      "case_id": "network-access-quick-reference-txt",
+      "file_type": "txt",
+      "required_text_count": 2,
+      "matched_text_count": 2,
+      "success": true
+    },
+    {
+      "case_id": "device-recovery-guide-docx",
+      "file_type": "docx",
+      "required_text_count": 2,
+      "matched_text_count": 2,
+      "success": true
+    }
+  ]
+}

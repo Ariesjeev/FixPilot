@@ -1,0 +1,660 @@
+{
+  "schema_version": 1,
+  "run_at": "2026-10-21T10:36:03.894978+00:00",
+  "dataset": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\evaluation\\questions.json",
+  "dataset_version": 1,
+  "cases": [
+    {
+      "case_id": "vpn-remote-access",
+      "question": "How do I connect to the company VPN from home?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Install NexSecure VPN from the internal Software Portal.",
+        "Sign in with company email and password, complete MFA, and select a corporate gateway.",
+        "Do not disable endpoint security or firewall settings."
+      ],
+      "basic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "To connect to the company VPN from home, follow these steps:\n\n1. Install the NexSecure VPN client from the internal Software Portal.\n2. Open the NexSecure VPN client and select the nearest corporate gateway.\n3. Sign in with your company email and password.\n4. Complete the multi-factor authentication (MFA) prompt on your phone.\n5. Wait for the status to show \"Connected,\" then you can access the internal systems you need.\n\nIf you encounter any issues, ensure your internet connectivity is stable, restart the client, and try another corporate gateway. If problems persist, open an IT ticket with a screenshot of the error.",
+        "trace": [
+          "Retrieve top-k private KB chunks",
+          "Generate answer without evidence grading"
+        ],
+        "citations": [
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf"
+        ],
+        "duration_ms": 10013.0,
+        "answer_correct": false,
+        "unsupported_claims": null,
+        "answer_review_note": "Omitted the required warning not to disable endpoint security or firewall settings."
+      },
+      "agentic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "To connect to the company VPN from home, follow these steps based on the company's private knowledge base:\n\n1. **Install the NexSecure VPN client** from the internal Software Portal.\n2. **Open the NexSecure VPN client**.\n3. **Select the nearest corporate gateway** (e.g., India-South).\n4. **Sign in** using your company email and password (Single Sign-On).\n5. **Approve the multi-factor authentication (MFA)** prompt on your phone.\n6. Wait for the status to show **Connected**.\n7. Once connected, you can access the internal systems you need.\n\nIf you encounter issues, ensure your internet is working, restart the client, and try another gateway. Do not disable endpoint security or firewall settings. If problems persist, open an IT ticket with a screenshot of the error.",
+        "trace": [
+          "Router → KB",
+          "Private KB retrieval → 4 chunks",
+          "KB evidence grade → GOOD",
+          "Answer generation → PRIVATE KB"
+        ],
+        "citations": [
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+            "url": "",
+            "type": "private_kb"
+          },
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+            "url": "",
+            "type": "private_kb"
+          }
+        ],
+        "duration_ms": 8107.4,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Covers all three expected points; extra gateway/SSO detail appears in the cited uploaded PDF."
+      }
+    },
+    {
+      "case_id": "password-reset",
+      "question": "What is the normal company password reset process, and what if I get locked out?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Use the self-service identity portal for normal resets.",
+        "After five failed attempts, the account may be temporarily locked.",
+        "Contact the IT Service Desk if self-service recovery fails."
+      ],
+      "basic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "The normal company password reset process involves using the self-service identity portal after verifying your identity with Multi-Factor Authentication (MFA). If you get locked out after five failed login attempts, your account may be temporarily locked. If self-service recovery fails, you should contact the IT Service Desk for assistance.",
+        "trace": [
+          "Retrieve top-k private KB chunks",
+          "Generate answer without evidence grading"
+        ],
+        "citations": [
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf"
+        ],
+        "duration_ms": 3484.3,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Covers self-service reset, five-failure lockout, and Service Desk fallback."
+      },
+      "agentic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "Based on the company's private knowledge base, the normal password reset process is as follows:\n\n1. Use the self-service identity portal for password resets.\n2. Ensure your password is at least 14 characters long.\n3. After five failed login attempts, your account may be temporarily locked.\n4. If self-service recovery fails, contact the IT Service Desk for assistance.\n\nIf you get locked out, follow these steps:\n\n- Attempt to reset your password using the self-service identity portal.\n- If unsuccessful, reach out to the IT Service Desk for help.\n\nRemember, never share your passwords or MFA codes with anyone, including support personnel.",
+        "trace": [
+          "Router → KB",
+          "Private KB retrieval → 4 chunks",
+          "KB evidence grade → GOOD",
+          "Answer generation → PRIVATE KB"
+        ],
+        "citations": [
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+            "url": "",
+            "type": "private_kb"
+          },
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+            "url": "",
+            "type": "private_kb"
+          }
+        ],
+        "duration_ms": 6549.4,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Covers all three expected points."
+      }
+    },
+    {
+      "case_id": "mfa-sharing",
+      "question": "Can I give my MFA code to someone from IT support?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Never share passwords or MFA codes with support personnel."
+      ],
+      "basic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "No, you should never share your MFA code with anyone, including IT support personnel.",
+        "trace": [
+          "Retrieve top-k private KB chunks",
+          "Generate answer without evidence grading"
+        ],
+        "citations": [
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf"
+        ],
+        "duration_ms": 2390.9,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Clearly says not to share MFA codes with IT support."
+      },
+      "agentic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "No, you should never share your MFA code with anyone, including IT support staff. The company policy explicitly states that employees must not share passwords or MFA codes with support personnel. This information is based on the company's private knowledge base.",
+        "trace": [
+          "Router → KB",
+          "Private KB retrieval → 4 chunks",
+          "KB evidence grade → GOOD",
+          "Answer generation → PRIVATE KB"
+        ],
+        "citations": [
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+            "url": "",
+            "type": "private_kb"
+          },
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+            "url": "",
+            "type": "private_kb"
+          }
+        ],
+        "duration_ms": 4570.6,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Covers the no-sharing policy for MFA codes and support staff."
+      }
+    },
+    {
+      "case_id": "approved-mfa",
+      "question": "Which MFA methods are approved for protected company systems?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "The company authenticator app and registered hardware security keys are approved.",
+        "SMS is only allowed when explicitly enabled as a recovery method."
+      ],
+      "basic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "The approved MFA methods for protected company systems are the company authenticator app and registered hardware security keys. SMS should only be used when explicitly enabled as a recovery method.",
+        "trace": [
+          "Retrieve top-k private KB chunks",
+          "Generate answer without evidence grading"
+        ],
+        "citations": [
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf"
+        ],
+        "duration_ms": 3277.3,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Names both approved methods and the SMS recovery-only condition."
+      },
+      "agentic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "Based on the company's private knowledge base, the approved Multi-Factor Authentication (MFA) methods for protected company systems are:\n\n1. Company authenticator app\n2. Registered hardware security keys\n\nSMS may only be used as a recovery method when explicitly enabled.",
+        "trace": [
+          "Router → KB",
+          "Private KB retrieval → 4 chunks",
+          "KB evidence grade → GOOD",
+          "Answer generation → PRIVATE KB"
+        ],
+        "citations": [
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+            "url": "",
+            "type": "private_kb"
+          },
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+            "url": "",
+            "type": "private_kb"
+          }
+        ],
+        "duration_ms": 4509.6,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Names both approved methods and the SMS recovery-only condition."
+      }
+    },
+    {
+      "case_id": "software-installation",
+      "question": "How can I install business software that is not listed in the company portal?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Unlisted software requires manager approval and IT security review.",
+        "Administrator access is not granted simply to install unapproved applications."
+      ],
+      "basic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "To install business software that is not listed in the company portal, you need to obtain manager approval and undergo an IT security review. Administrator access will not be granted simply for installing unapproved applications.",
+        "trace": [
+          "Retrieve top-k private KB chunks",
+          "Generate answer without evidence grading"
+        ],
+        "citations": [
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md"
+        ],
+        "duration_ms": 2045.1,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Covers manager approval, IT security review, and admin-access restriction."
+      },
+      "agentic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "To install business software that is not listed in the company portal, follow these steps based on the company's private knowledge base:\n\n1. **Obtain Manager Approval**: Request approval from your manager for the software you wish to install.\n2. **IT Security Review**: After obtaining manager approval, submit the request for an IT security review.\n3. **Wait for Approval**: Do not attempt to install the software until you receive confirmation from IT that it is approved.\n4. **Installation**: Once approved, follow the standard installation procedures as directed by IT.\n\nRemember, administrator access is not granted simply to install unapproved applications.",
+        "trace": [
+          "Router → KB",
+          "Private KB retrieval → 4 chunks",
+          "KB evidence grade → GOOD",
+          "Answer generation → PRIVATE KB"
+        ],
+        "citations": [
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+            "url": "",
+            "type": "private_kb"
+          },
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+            "url": "",
+            "type": "private_kb"
+          }
+        ],
+        "duration_ms": 7068.6,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Covers manager approval, IT security review, and admin-access restriction."
+      }
+    },
+    {
+      "case_id": "lost-laptop",
+      "question": "What should I do if my company laptop is stolen?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Immediately report it to the IT Service Desk and manager.",
+        "Provide the asset tag if available and last known location.",
+        "Do not try to recover the device remotely yourself."
+      ],
+      "basic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "If your company laptop is stolen, you should immediately report it to the IT Service Desk and your manager. Provide the device asset tag if available and the last known location. IT will initiate device lock/wipe procedures and coordinate with Security. Do not attempt to remotely recover the device yourself.",
+        "trace": [
+          "Retrieve top-k private KB chunks",
+          "Generate answer without evidence grading"
+        ],
+        "citations": [
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf"
+        ],
+        "duration_ms": 2762.2,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Covers immediate reporting, asset tag/location, and no self-recovery."
+      },
+      "agentic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "If your company laptop is stolen, follow these steps based on the company's private knowledge base:\n\n1. **Immediately report** the theft to the IT Service Desk and your manager.\n2. Provide the **device asset tag** if available and the **last known location** of the laptop.\n3. IT will initiate **device lock/wipe procedures** and coordinate with Security.\n4. **Do not attempt** to remotely recover the device yourself.\n\nFor further assistance, you can also email security@nexora.example within 1 hour of the incident.",
+        "trace": [
+          "Router → KB",
+          "Private KB retrieval → 4 chunks",
+          "KB evidence grade → GOOD",
+          "Answer generation → PRIVATE KB"
+        ],
+        "citations": [
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+            "url": "",
+            "type": "private_kb"
+          },
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+            "url": "",
+            "type": "private_kb"
+          }
+        ],
+        "duration_ms": 4507.3,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Covers all expected points; additional one-hour contact instruction is present in a cited uploaded PDF."
+      }
+    },
+    {
+      "case_id": "email-troubleshooting",
+      "question": "I cannot send or receive email. What should IT check first?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Determine whether one user or many users are affected.",
+        "Check network connectivity and the service status dashboard.",
+        "For one user, sign out and back in, check mailbox quota, and test the web client.",
+        "Escalate widespread incidents instead of asking every user to reinstall."
+      ],
+      "basic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "IT should first confirm whether the email issue affects one user or many users. Then, they should check network connectivity and the service status dashboard.",
+        "trace": [
+          "Retrieve top-k private KB chunks",
+          "Generate answer without evidence grading"
+        ],
+        "citations": [
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf"
+        ],
+        "duration_ms": 2660.5,
+        "answer_correct": false,
+        "unsupported_claims": null,
+        "answer_review_note": "Only covers identifying scope and checking connectivity/status; omits individual-user steps and widespread-incident escalation."
+      },
+      "agentic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "Based on the company's private knowledge base, if you cannot send or receive email, follow these steps:\n\n1. Confirm if the issue affects one user or many users.\n2. Check network connectivity.\n3. Review the service status dashboard.\n4. If it's a single user issue:\n   - Sign out and back in.\n   - Verify mailbox quota.\n   - Test the web client.\n5. If it's a widespread incident, escalate the suspected service incident without asking each user to reinstall software.\n\nPlease proceed with these steps to troubleshoot the email issue.",
+        "trace": [
+          "Router → KB",
+          "Private KB retrieval → 4 chunks",
+          "KB evidence grade → GOOD",
+          "Answer generation → PRIVATE KB"
+        ],
+        "citations": [
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+            "url": "",
+            "type": "private_kb"
+          },
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+            "url": "",
+            "type": "private_kb"
+          }
+        ],
+        "duration_ms": 4053.1,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Covers scope, initial checks, single-user steps, and widespread incident escalation."
+      }
+    },
+    {
+      "case_id": "laptop-slow",
+      "question": "My work laptop is running slowly. What troubleshooting steps are allowed?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "Check CPU, memory, free storage, startup applications, OS updates, and endpoint security scan status.",
+        "Do not disable security agents.",
+        "Escalate hardware diagnostic failures or repeated shutdowns."
+      ],
+      "basic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "To troubleshoot a slow laptop, you should first check the following:\n\n1. CPU usage\n2. Memory usage\n3. Storage free space\n4. Startup applications\n5. Operating system updates\n6. Endpoint security scan status\n\nPlease do not disable security agents as a troubleshooting shortcut. If hardware diagnostics report failure or if there are repeated shutdowns after software remediation, escalate the issue.",
+        "trace": [
+          "Retrieve top-k private KB chunks",
+          "Generate answer without evidence grading"
+        ],
+        "citations": [
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md"
+        ],
+        "duration_ms": 2297.8,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Covers required system checks, security-agent warning, and escalation conditions."
+      },
+      "agentic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "Based on the company's private knowledge base, here are the allowed troubleshooting steps for a slow laptop:\n\n1. **Check CPU Usage**: Monitor the CPU usage to identify any processes that may be consuming excessive resources.\n2. **Check Memory Usage**: Verify the memory usage to see if the laptop is running low on RAM.\n3. **Check Storage Free Space**: Ensure there is sufficient free space on the storage drive.\n4. **Review Startup Applications**: Look at the applications that start up with the laptop and disable any unnecessary ones.\n5. **Check for Operating System Updates**: Ensure that the operating system is up to date.\n6. **Check Endpoint Security Scan Status**: Confirm that the endpoint security scan has been completed and there are no issues.\n\n**Important**: Do not disable security agents as a troubleshooting shortcut. If hardware diagnostics report failure or if the laptop continues to shut down repeatedly after software remediation, escalate the issue.\n\nFor further assistance, please contact the IT Service Desk.",
+        "trace": [
+          "Router → KB",
+          "Private KB retrieval → 4 chunks",
+          "KB evidence grade → GOOD",
+          "Answer generation → PRIVATE KB"
+        ],
+        "citations": [
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+            "url": "",
+            "type": "private_kb"
+          },
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\company_it_handbook.md",
+            "url": "",
+            "type": "private_kb"
+          }
+        ],
+        "duration_ms": 6551.6,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Covers required system checks, security-agent warning, and escalation conditions."
+      }
+    },
+    {
+      "case_id": "ticket-priority",
+      "question": "What priority should an individual user issue with limited workaround receive?",
+      "expected_source": "private_kb",
+      "expected_answer_points": [
+        "P3 is for an individual user blocked or degraded with a limited workaround."
+      ],
+      "basic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "An individual user issue with limited workaround should receive a P3 priority.",
+        "trace": [
+          "Retrieve top-k private KB chunks",
+          "Generate answer without evidence grading"
+        ],
+        "citations": [
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf"
+        ],
+        "duration_ms": 2457.3,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Correctly identifies P3 for an individual user with limited workaround."
+      },
+      "agentic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "Based on the company's private knowledge base, an individual user issue with limited workaround should receive a priority of P3.",
+        "trace": [
+          "Router → KB",
+          "Private KB retrieval → 4 chunks",
+          "KB evidence grade → GOOD",
+          "Answer generation → PRIVATE KB"
+        ],
+        "citations": [
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+            "url": "",
+            "type": "private_kb"
+          },
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+            "url": "",
+            "type": "private_kb"
+          }
+        ],
+        "duration_ms": 4711.7,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Correctly identifies P3 for an individual user with limited workaround."
+      }
+    },
+    {
+      "case_id": "current-vendor-status",
+      "question": "Where can I check the current Microsoft Teams service outage status?",
+      "expected_source": "web_search",
+      "expected_answer_points": [
+        "Uses a current, relevant external source and clearly identifies it as external information."
+      ],
+      "basic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "You can check the current Microsoft Teams service outage status by looking at the official Microsoft 365 Service Health status. Additionally, you can check #it-status or the Service Desk portal banner for any known incidents.",
+        "trace": [
+          "Retrieve top-k private KB chunks",
+          "Generate answer without evidence grading"
+        ],
+        "citations": [
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md"
+        ],
+        "duration_ms": 1841.5,
+        "answer_correct": false,
+        "unsupported_claims": null,
+        "answer_review_note": "Expected a current external-source lookup; response used private KB and did not verify current status."
+      },
+      "agentic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "To check the current Microsoft Teams service outage status, follow these steps based on the company's private knowledge base:\n\n1. Check if others are affected by looking at #it-status or the Service Desk portal banner for any known incidents.\n2. Visit the official Microsoft 365 Service Health status page for current vendor-side outage information.\n\nIf you need further assistance, consider using workarounds like Teams in the web browser or the mobile app.",
+        "trace": [
+          "Router → KB",
+          "Private KB retrieval → 4 chunks",
+          "KB evidence grade → GOOD",
+          "Answer generation → PRIVATE KB"
+        ],
+        "citations": [
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+            "url": "",
+            "type": "private_kb"
+          },
+          {
+            "title": "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+            "url": "",
+            "type": "private_kb"
+          }
+        ],
+        "duration_ms": 4719.4,
+        "answer_correct": false,
+        "unsupported_claims": null,
+        "answer_review_note": "Expected a current external-source lookup; response used private KB and did not verify current status."
+      }
+    },
+    {
+      "case_id": "current-vendor-guidance",
+      "question": "What is Microsoft's latest public guidance for troubleshooting a Teams service outage?",
+      "expected_source": "web_search",
+      "expected_answer_points": [
+        "Uses current, relevant external guidance and identifies the source.",
+        "Does not present external guidance as NexoraRetail company policy."
+      ],
+      "basic_rag": {
+        "source_used": "private_kb",
+        "selected_source": "private_kb",
+        "web_search_used": false,
+        "answer": "The evidence is insufficient.",
+        "trace": [
+          "Retrieve top-k private KB chunks",
+          "Generate answer without evidence grading"
+        ],
+        "citations": [
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\data\\sample_kb\\service_desk_runbook.md",
+          "D:\\Users\\Prime Classes\\Major_Project\\FixPilot\\uploads\\nexora_technologies_company_information_updated.pdf"
+        ],
+        "duration_ms": 1630.7,
+        "answer_correct": false,
+        "unsupported_claims": null,
+        "answer_review_note": "Returned insufficient evidence rather than current external guidance."
+      },
+      "agentic_rag": {
+        "source_used": "web_search",
+        "selected_source": "web_search",
+        "web_search_used": true,
+        "answer": "This information is sourced from external web content and may require IT validation before implementing changes to company-managed systems.\n\nMicrosoft's latest public guidance for troubleshooting a Teams service outage includes the following steps:\n\n1. **Check the Microsoft 365 Service Health page**: This page provides updates on any reported outages affecting Microsoft Teams.\n2. **Contact IT support**: If multiple users in your organization are experiencing issues, it may indicate a broader problem that requires IT intervention.\n3. **Restart the Teams app and/or your computer**: This can help resolve temporary glitches.\n4. **Clear Teams cache**: Corrupted cache files can lead to functionality issues, and clearing the cache may resolve these problems.\n5. **Advanced troubleshooting**: For persistent issues, IT administrators and power users can utilize advanced troubleshooting techniques to diagnose and fix deeper problems affecting Teams.\n\nFor more detailed guidance, you can refer to the Microsoft 365 Service Health dashboard and consult with your IT department.",
+        "trace": [
+          "Router → KB",
+          "Private KB retrieval → 4 chunks",
+          "KB evidence grade → WEAK",
+          "Web fallback → Tavily search",
+          "Web evidence grade → GOOD",
+          "Answer generation → WEB SEARCH"
+        ],
+        "citations": [
+          {
+            "title": "Microsoft Teams Troubleshooting Guide for Fast Fixes",
+            "url": "https://network-telecom.com/microsoft-teams-troubleshooting-ultimate-guide",
+            "type": "web"
+          },
+          {
+            "title": "How to Detect Microsoft Teams Outages: Is MS Teams Down? - Obkio",
+            "url": "https://obkio.com/blog/how-to-detect-microsoft-teams-outages",
+            "type": "web"
+          },
+          {
+            "title": "Microsoft Teams Outage Disrupts Meetings and Screen Sharing for Users",
+            "url": "https://gbhackers.com/microsoft-teams-outage-disrupts-meetings-and-screen-sharing",
+            "type": "web"
+          },
+          {
+            "title": "Teams Outage? - Microsoft Q&A",
+            "url": "https://learn.microsoft.com/en-us/answers/questions/5293524/teams-outage",
+            "type": "web"
+          },
+          {
+            "title": "How do I confirm MS Teams issues and downtime - Microsoft Q&A",
+            "url": "https://learn.microsoft.com/en-us/answers/questions/4435408/how-do-i-confirm-ms-teams-issues-and-downtime",
+            "type": "web"
+          }
+        ],
+        "duration_ms": 9215.9,
+        "answer_correct": true,
+        "unsupported_claims": null,
+        "answer_review_note": "Used web fallback, identified the answer as external, and included external citations."
+      }
+    }
+  ],
+  "annotation_guide": {
+    "answer_correct": "Set to true only when the answer covers the material expected answer points accurately; otherwise false.",
+    "unsupported_claims": "Set to true if the answer makes at least one factual claim unsupported by its cited/retrieved evidence; otherwise false. Judge refusals as false if they make no unsupported factual claims."
+  },
+  "manual_review_note": "Answer correctness was manually judged against expected_answer_points. Unsupported-claim annotations remain null because the run did not save the exact retrieved evidence passages."
+}
