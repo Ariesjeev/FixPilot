@@ -138,6 +138,8 @@ This repository demonstrates each layer.
 
 This follows the same core implementation pattern as the reference notebook.
 
+![Agentic RAG architecture with Tavily Search and Pinecone](docs/images/Agentic%20RAG%20Architecture.png)
+
 ```text
 Question
    ↓
